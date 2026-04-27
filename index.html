@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Battery NMR Research Group</title>
+<style>
+  :root {
+    --bg: #edf3f6;
+    --panel: #ffffff;
+    --panel-soft: #f7fbfd;
+    --text: #11212b;
+    --muted: #566873;
+    --line: rgba(17, 33, 43, 0.12);
+    --accent: #0a7287;
+    --accent-strong: #084f60;
+    --accent-soft: rgba(10, 114, 135, 0.1);
+    --shadow: 0 22px 50px rgba(15, 44, 54, 0.12);
+    --radius-lg: 28px;
+    --radius-md: 18px;
+    --radius-sm: 12px;
+    --max-width: 1120px;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--text);
+    background:
+      radial-gradient(circle at top left, rgba(10, 114, 135, 0.18), transparent 24%),
+      radial-gradient(circle at bottom right, rgba(35, 95, 140, 0.12), transparent 26%),
+      linear-gradient(180deg, #f7fbfd 0%, var(--bg) 100%);
+  }
+
+  a {
+    color: var(--accent-strong);
+  }
+
+  a:hover {
+    color: var(--accent);
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  .page {
+    width: min(var(--max-width), calc(100% - 32px));
+    margin: 24px auto 40px;
+  }
+
+  .topbar,
+  .hero,
+  .section,
+  .footer {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+  }
+
+  .topbar {
+    position: sticky;
+    top: 12px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+    padding: 14px 18px;
+    border-radius: 999px;
+  }
+
+  .brand {
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-strong);
+  }
+
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .nav a {
+    padding: 8px 12px;
+    border-radius: 999px;
+    text-decoration: none;
+    background: var(--accent-soft);
+    border: 1px solid rgba(10, 114, 135, 0.16);
+    font-size: 0.95rem;
+  }
+
+  .hero {
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+  }
+
+  .hero-media {
+    position: relative;
+    min-height: 420px;
+    background:
+      linear-gradient(90deg, rgba(7, 26, 35, 0.7) 0%, rgba(7, 26, 35, 0.28) 42%, rgba(7, 26, 35, 0.16) 100%),
+      url("banner-battery-nmr.png") center/cover no-repeat;
+  }
+
+  .hero-copy {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    padding: 42px;
+  }
+
+  .hero-copy-inner {
+    width: min(560px, 100%);
+  }
+
+  .eyebrow {
+    margin: 0 0 12px;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  h1,
+  h2,
+  h3 {
+    margin: 0;
+    line-height: 1.12;
+    font-weight: 700;
+  }
+
+  h1 {
+    font-size: clamp(2.4rem, 5vw, 4.2rem);
+    color: #ffffff;
+  }
+
+  h2 {
+    font-size: clamp(1.5rem, 2.2vw, 2.05rem);
+  }
+
+  h3 {
+    font-size: 1.15rem;
+  }
+
+  p {
+    margin: 0;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+
+  .hero-copy p {
+    margin-top: 18px;
+    max-width: 60ch;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.04rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 16px;
+    border-radius: 999px;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+  }
+
+  .button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+  }
+
+  .intro {
+    display: grid;
+    grid-template-columns: 1.4fr 0.9fr;
+    gap: 18px;
+    padding: 26px 30px 30px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(244, 249, 251, 0.98));
+  }
+
+  .intro-note,
+  .intro-panel {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: linear-gradient(180deg, #ffffff, #f8fbfc);
+    padding: 18px;
+  }
+
+  .intro-note strong,
+  .intro-panel strong {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .sections {
+    display: grid;
+    gap: 22px;
+    margin-top: 24px;
+  }
+
+  .section {
+    padding: 28px 30px;
+    border-radius: var(--radius-lg);
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .section-header p {
+    max-width: 52ch;
+  }
+
+  .grid-3,
+  .grid-2 {
+    display: grid;
+    gap: 16px;
+  }
+
+  .grid-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .grid-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .card {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: linear-gradient(180deg, #ffffff, #f7fbfc);
+    padding: 20px;
+  }
+
+  .card p {
+    margin-top: 10px;
+  }
+
+  .member-list {
+    margin: 12px 0 0;
+    padding-left: 20px;
+    color: var(--muted);
+  }
+
+  .member-list li + li {
+    margin-top: 8px;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 6px 10px;
+    margin-bottom: 10px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    font-size: 0.84rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .people-block {
+    display: grid;
+    gap: 16px;
+  }
+
+  .person {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 16px;
+    align-items: start;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: linear-gradient(180deg, #ffffff, #f8fbfc);
+    padding: 18px;
+  }
+
+  .avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.92), rgba(10, 114, 135, 0.18)),
+      linear-gradient(135deg, rgba(10, 114, 135, 0.24), rgba(35, 95, 140, 0.1));
+    border: 1px solid rgba(10, 114, 135, 0.18);
+  }
+
+  .person-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .person-meta span {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    font-size: 0.85rem;
+    color: var(--accent-strong);
+  }
+
+  .papers {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 14px;
+  }
+
+  .paper-item {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: linear-gradient(180deg, #ffffff, #f8fbfc);
+    padding: 18px 20px;
+  }
+
+  .paper-item p + p {
+    margin-top: 6px;
+  }
+
+  .footer {
+    margin-top: 24px;
+    padding: 18px 22px;
+    border-radius: var(--radius-md);
+    text-align: center;
+  }
+
+  .footer p {
+    color: var(--text);
+    font-size: 0.96rem;
+  }
+
+  @media (max-width: 920px) {
+    .intro,
+    .grid-3,
+    .grid-2 {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .page {
+      width: min(100% - 20px, var(--max-width));
+      margin: 18px auto 24px;
+    }
+
+    .topbar {
+      position: static;
+      border-radius: var(--radius-md);
+      padding: 14px;
+    }
+
+    .hero-media {
+      min-height: 360px;
+      background-position: 62% center;
+    }
+
+    .hero-copy,
+    .intro,
+    .section {
+      padding: 22px 18px;
+    }
+
+    .section-header {
+      flex-direction: column;
+      align-items: start;
+    }
+
+    .person {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <div class="brand">Battery NMR Research Group</div>
+      <nav class="nav" aria-label="Primary">
+        <a href="#research">Research</a>
+        <a href="#members">Members</a>
+        <a href="#papers">Recent Papers</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-media">
+        <div class="hero-copy">
+          <div class="hero-copy-inner">
+            <p class="eyebrow">Battery Materials | Nuclear Magnetic Resonance</p>
+            <h1>Battery NMR Research Group</h1>
+            <p>
+              Led by Bin Jiang, the group studies battery materials through NMR-based structural and
+              dynamical characterization, with emphasis on linking atomic-scale information to
+              electrochemical behavior at the Innovation Academy for Precision Measurement Science and
+              Technology, CAS.
+            </p>
+            <p>
+              Our recent work focuses on the intersection of battery materials, solid-state NMR,
+              spectroscopy, and data-driven research for advanced energy-storage systems.
+            </p>
+            <div class="hero-actions">
+              <a class="button" href="#research">Explore Research</a>
+              <a class="button" href="#members">Meet the Group</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="intro">
+        <div class="intro-note">
+          <strong>Group Overview</strong>
+          <p>
+            The group is led by Bin Jiang, who received his PhD from the Wuhan Institute of Physics and
+            Mathematics, Chinese Academy of Sciences, in 2008. His research started from NMR principles and
+            new techniques, and in recent years has expanded toward interdisciplinary work combining
+            artificial intelligence, battery materials, and NMR. The group is based at the Innovation
+            Academy for Precision Measurement Science and Technology, CAS.
+          </p>
+        </div>
+        <div class="intro-panel">
+          <strong>Current Scope</strong>
+          <p>Research areas, faculty and student rosters, recent paper highlights, and a concise group profile for a GitHub Pages site.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="sections">
+      <section class="section" id="research">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow" style="color: var(--accent);">Research</p>
+            <h2>Research Areas</h2>
+          </div>
+          <p>
+            The group mainly develops electrode and electrolyte materials for high-performance lithium and
+            sodium batteries, using solid-state NMR and spectroscopy as characteristic tools.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <span class="tag">Structure</span>
+            <h3>Local Structure and Ion Environments</h3>
+            <p>Investigate how microstructure, phase state, and local ionic environments in advanced energy-storage materials affect battery performance.</p>
+          </article>
+          <article class="card">
+            <span class="tag">Dynamics</span>
+            <h3>Ion Transport Mechanisms</h3>
+            <p>Study lithium and sodium transport processes in electrode and electrolyte systems, with emphasis on the mechanistic origin of electrochemical behavior.</p>
+          </article>
+          <article class="card">
+            <span class="tag">Systems</span>
+            <h3>Representative Material Systems</h3>
+            <p>Current themes include MOF-derived materials, high-loading Li-Se cathodes, polyanionic sodium-ion cathodes, and inorganic solid lithium-ion conductors.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="members">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow" style="color: var(--accent);">People</p>
+            <h2>Group Members</h2>
+          </div>
+          <p>
+            The group currently includes faculty members, current graduate students, and alumni who have
+            completed their degrees.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <div class="people-block">
+            <article class="person">
+              <div class="avatar" aria-hidden="true"></div>
+              <div>
+                <h3>Bin Jiang</h3>
+                <div class="person-meta">
+                  <span>Research Professor</span>
+                  <span>Principal Investigator</span>
+                </div>
+                <p>Group leader. Research interests include NMR principles and methods, battery materials, and recent interdisciplinary work connecting artificial intelligence with NMR and energy materials research.</p>
+              </div>
+            </article>
+
+            <article class="card">
+              <span class="tag">Faculty</span>
+              <h3>Faculty Members</h3>
+              <ul class="member-list">
+                <li>Prof. Bin Jiang （蒋滨研究员）</li>
+                <li>Prof. Jiwen Feng （冯继文研究员）</li>
+                <li>Prof. Shenhui Li （李申慧研究员）</li>
+                <li>Assoc. Prof. Bing Chen （陈冰副研究员）</li>
+                <li>Assoc. Prof. Xinmiao Liang （梁欣苗副研究员）</li>
+              </ul>
+            </article>
+          </div>
+
+          <div class="people-block">
+            <article class="card">
+              <span class="tag">Current Students</span>
+              <h3>Graduate Students</h3>
+              <ul class="member-list">
+                <li>Fangjie Ji （汲方杰）</li>
+                <li>Caiyan He （贺彩艳）</li>
+                <li>Zhi Chen （陈智）</li>
+                <li>Yifan Xing （邢艺凡）</li>
+                <li>Kaiqin Yang （杨开琴）</li>
+                <li>Meizhu E （鄂美竹）</li>
+                <li>Jinglei Luo （罗静蕾）</li>
+                <li>Chaolan Chen （陈朝兰）</li>
+              </ul>
+            </article>
+
+            <article class="card">
+              <span class="tag">Alumni</span>
+              <h3>Graduated Students</h3>
+              <ul class="member-list">
+                <li>Youyi Lei （雷友义）</li>
+                <li>Li Yang （杨丽）</li>
+                <li>Luyao Qu （屈路遥）</li>
+                <li>Ke Xu （徐克）</li>
+                <li>Yingnan Hua （华英楠）</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="papers">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow" style="color: var(--accent);">Publications</p>
+            <h2>Recent Papers</h2>
+          </div>
+          <p>
+            A selection of recent publications from the group is listed below with journal information and
+            DOI links.
+          </p>
+        </div>
+
+        <ul class="papers">
+          <li class="paper-item">
+            <p><strong>Synergistic Na3V2(PO4)3-Na4Fe3(PO4)2P2O7 heterostructure cathode for superior-rate and ultrastable sodium storage</strong></p>
+            <p>Ji, F., Chen, K., Chen, Z., Liang, X., Fang, Y., Cao, Y., Jiang, B., 2026.</p>
+            <p><em>Energy Storage Materials</em>, 105144. <a href="https://doi.org/10.1016/j.ensm.2026.105144">DOI</a></p>
+          </li>
+          <li class="paper-item">
+            <p><strong>Spectroscopic signature of the anchoring effect of anions in lithium salts with MIL-100(al) open metal sites</strong></p>
+            <p>E, M., He, C., Xing, Y., Ji, F., Chen, Z., Yang, K., Jiang, B., Feng, J., Li, S., 2026.</p>
+            <p><em>Journal of Energy Chemistry</em>. <a href="https://doi.org/10.1016/j.jechem.2026.03.060">DOI</a></p>
+          </li>
+          <li class="paper-item">
+            <p><strong>The effects of morphological architectures of ZIF-8-derived N-doped nanoporous carbon as cathodes on the electrochemical performances of li-se batteries</strong></p>
+            <p>Xing, Y., E, M., He, C., Chen, B., Jiang, B., Feng, J., Li, S., 2026.</p>
+            <p><em>Energy Fuels</em> 40, 7120-7134. <a href="https://doi.org/10.1021/acs.energyfuels.6c00050">DOI</a></p>
+          </li>
+          <li class="paper-item">
+            <p><strong>Activation of glass-state selenium driven by deep-discharge cycling for high-loading se/carbon cathode</strong></p>
+            <p>Xu, K., Xing, Y., Lei, Y., Liang, X., Qu, L., Yang, L., Li, S., Jiang, B., Feng, J., 2026.</p>
+            <p><em>ACS Applied Energy Materials</em> 9, 2257-2266. <a href="https://doi.org/10.1021/acsaem.5c03850">DOI</a></p>
+          </li>
+          <li class="paper-item">
+            <p><strong>How the amorphous phase structure of confined selenium affects performance in li - se batteries of high se loading</strong></p>
+            <p>Xu, K., Lei, Y., Liang, X., Qu, L., Yang, L., Li, S., Jiang, B., Feng, J., 2025.</p>
+            <p><em>Carbon</em> 244, 120714. <a href="https://doi.org/10.1016/j.carbon.2025.120714">DOI</a></p>
+          </li>
+          <li class="paper-item">
+            <p><strong>In-situ compositing HA significantly enhancing electrochemical performance of mn-MOF anode materials</strong></p>
+            <p>Chen, Z., Hua, Y., Chen, B., Feng, J., Liu, G., Jiang, B., 2025.</p>
+            <p><em>Chemical Engineering Journal</em> 506, 160004. <a href="https://doi.org/10.1016/j.cej.2025.160004">DOI</a></p>
+          </li>
+          <li class="paper-item">
+            <p><strong>Fast lithium ion conduction in arsenides Li9AlAs4 and Li9GaAs4</strong></p>
+            <p>Qu, L., Liang, X., Yang, L., Xu, K., Lei, Y., Yang, K., Li, S., Jiang, B., Feng, J., 2024.</p>
+            <p><em>Chemistry of Materials</em> 36, 11129-11138. <a href="https://doi.org/10.1021/acs.chemmater.4c02008">DOI</a></p>
+          </li>
+        </ul>
+      </section>
+
+      <section class="section" id="contact">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow" style="color: var(--accent);">Contact</p>
+            <h2>Contact and Updates</h2>
+          </div>
+          <p>
+            The uploaded group summary does not include direct email or postal contact information, so this
+            section currently focuses on institutional context and future website expansion.
+          </p>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <h3>Institution</h3>
+            <p>Innovation Academy for Precision Measurement Science and Technology, CAS (中国科学院精密测量科学与技术创新研究院).</p>
+          </article>
+          <article class="card">
+            <h3>Website Notes</h3>
+            <p>This GitHub Pages site can be expanded further with member photos, project pages, publication archives, and direct contact details when you are ready to add them.</p>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <footer class="footer">
+      <p>Battery NMR Research Group | Innovation Academy for Precision Measurement Science and Technology, CAS</p>
+    </footer>
+  </main>
+</body>
+</html>
